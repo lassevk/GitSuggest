@@ -7,15 +7,31 @@ namespace GitSuggest.CommandLine
     {
         static void Main(string[] args)
         {
-            Task.Run(() => MainAsync(args)).Wait();
-            Console.WriteLine("done");
+            try
+            {
+                try
+                {
+                    Task.Run(() => MainAsync(args)).Wait();
+                }
+                catch (AggregateException ex) when (ex.InnerExceptions.Count == 1)
+                {
+                    throw ex.InnerExceptions[0];
+                }
+            }
+            catch (ErrorMessageException ex)
+            {
+                Console.WriteLine("error: " + ex.Message);
+
+                Environment.Exit(ex.ExitCode);
+            }
         }
 
         private static async Task MainAsync(string[] args)
         {
-            Console.WriteLine("before");
-            await Task.Delay(1000);
-            Console.WriteLine("after");
+            var engine = new SuggestionEngine(".");
+            var suggestions = await engine.GetSuggestions();
+            foreach (var suggestion in suggestions)
+                Console.WriteLine(suggestion.Title);
         }
     }
 }
