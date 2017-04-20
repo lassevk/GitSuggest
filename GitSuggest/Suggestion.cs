@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 using JetBrains.Annotations;
 
@@ -6,12 +8,12 @@ namespace GitSuggest
 {
     public class Suggestion
     {
-        public Suggestion(int rank, [NotNull] string title, [NotNull] string description, [NotNull] string arguments)
+        public Suggestion(int rank, [NotNull] string title, [NotNull] string description, [NotNull] params SuggestedAction[] actions)
         {
             Rank = rank;
             Title = title ?? throw new ArgumentNullException(nameof(title));
             Description = description ?? throw new ArgumentNullException(nameof(description));
-            Arguments = arguments ?? throw new ArgumentNullException(nameof(arguments));
+            Actions = actions.ToList() ?? throw new ArgumentNullException(nameof(actions));
         }
 
         [UsedImplicitly]
@@ -24,6 +26,6 @@ namespace GitSuggest
         public string Description { get; }
 
         [NotNull, UsedImplicitly]
-        public string Arguments { get; }
+        public List<SuggestedAction> Actions { get; }
     }
 }

@@ -11,7 +11,7 @@ namespace GitSuggest.SuggestionProviders
             var result = new List<Suggestion>();
 
             if (!await repository.IsValidGitRepository())
-                result.Add(new Suggestion(99999, "This does not seem to be a valid git repository", string.Empty.AssumeNotNull(), string.Empty.AssumeNotNull()));
+                result.Add(new Suggestion(99999, "This does not seem to be a valid git repository", string.Empty.AssumeNotNull()));
 
             return result;
         }

@@ -47,6 +47,7 @@ namespace GitSuggest
 
                 var provider = (ISuggestionProvider)Activator.CreateInstance(providerType.AsType());
                 assume(provider != null);
+
                 result.AddRange(await provider.GetSuggestions(_GitRepository, _Configuration));
             }
 

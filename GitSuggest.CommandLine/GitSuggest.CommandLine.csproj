@@ -3,9 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp1.1</TargetFramework>
-    <PostBuildEvent>ROBOCOPY . "%DROPBOX%\Tools\GitSuggest" /E /MIR /NP
-IF %ERRORLEVEL% GEQ 4 EXIT /B 1
-EXIT /B 0</PostBuildEvent>
+    <PostBuildEvent></PostBuildEvent>
   </PropertyGroup>
 
   <ItemGroup>
