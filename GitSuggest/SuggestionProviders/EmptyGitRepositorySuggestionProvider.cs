@@ -6,7 +6,7 @@ namespace GitSuggest.SuggestionProviders
 {
     internal class EmptyGitRepositorySuggestionProvider : ISuggestionProvider
     {
-        public async Task<List<Suggestion>> GetSuggestions(GitRepository repository)
+        public async Task<List<Suggestion>> GetSuggestions(GitRepository repository, IConfiguration configuration)
         {
             var (exitcode, lines) = await repository.ExecuteGit("branch");
             if (exitcode != 0)
@@ -15,7 +15,7 @@ namespace GitSuggest.SuggestionProviders
             if (lines.Count == 0)
             {
                 // TODO: Check if there are files or directies on disk
-                return new List<Suggestion> { new Suggestion("Add content to your new repository", "Your repository seems to be empty of commits, and no files or directories on disk exists.", string.Empty) };
+                return new List<Suggestion> { new Suggestion(1000, "Add content to your new repository", "Your repository seems to be empty of commits, and no files or directories on disk exists.", string.Empty.AssumeNotNull()) };
             }
 
             return new List<Suggestion>();

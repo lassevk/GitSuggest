@@ -7,16 +7,23 @@ using Commander;
 using Commander.Events;
 using Commander.Monitors;
 
+using JetBrains.Annotations;
+
+using static GitSuggest.ReSharperHelpers;
+
 namespace GitSuggest
 {
     internal class GitProcessor
     {
+        [NotNull]
         private readonly string _Path;
+
+        [NotNull]
         private readonly Dictionary<string, (int, List<string>)> _CachedResults = new Dictionary<string, (int, List<string>)>();
 
-        protected GitProcessor(string path)
+        protected GitProcessor([NotNull] string path)
         {
-            _Path = path;
+            _Path = path ?? throw new ArgumentNullException(nameof(path));
         }
 
         public async Task<(int errorcode, List<string> output)> ExecuteGit(string arguments)
@@ -33,8 +40,11 @@ namespace GitSuggest
         private async Task<(int errorcode, List<string> output)> InternalExecuteGit(string arguments)
         {
             var monitor = new ProcessCollectOutputMonitor();
-            int exitcode = await ConsoleProcess.ExecuteAsync("git.exe", arguments, _Path, monitor);
-            return (exitcode, monitor.Events.OfType<ProcessOutputEvent>().Select(e => e.Line).ToList());
+            var gitTask = ConsoleProcess.ExecuteAsync("git.exe", arguments, _Path, monitor);
+            assume(gitTask != null);
+
+            int exitcode = await gitTask;
+            return (exitcode, monitor.Events.OfType<ProcessOutputEvent>().Select(e => e?.Line).ToList());
         }
     }
 }

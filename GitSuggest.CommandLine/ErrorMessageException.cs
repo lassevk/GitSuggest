@@ -1,7 +1,10 @@
 using System;
 
+using JetBrains.Annotations;
+
 namespace GitSuggest.CommandLine
 {
+    [UsedImplicitly]
     internal class ErrorMessageException : Exception
     {
         public ErrorMessageException(int exitcode, string message)

@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Commander" Version="2017.4.19.1919-beta" />
+    <PackageReference Include="JetBrains.Annotations" Version="10.4.0" />
     <PackageReference Include="System.ValueTuple" Version="4.3.0" />
   </ItemGroup>
 

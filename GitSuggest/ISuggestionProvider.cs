@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using JetBrains.Annotations;
+
 namespace GitSuggest
 {
+    [UsedImplicitly]
     internal interface ISuggestionProvider
     {
-        Task<List<Suggestion>> GetSuggestions(GitRepository repository);
+        [NotNull, ItemNotNull]
+        Task<List<Suggestion>> GetSuggestions([NotNull] GitRepository repository, [NotNull, UsedImplicitly] IConfiguration configuration);
     }
 }

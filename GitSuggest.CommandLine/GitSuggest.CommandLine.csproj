@@ -9,6 +9,10 @@ EXIT /B 0</PostBuildEvent>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="10.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\GitSuggest\GitSuggest.csproj" />
   </ItemGroup>
 
