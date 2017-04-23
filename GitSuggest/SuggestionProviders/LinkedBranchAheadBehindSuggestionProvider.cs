@@ -31,7 +31,7 @@ namespace GitSuggest.SuggestionProviders
 
         public async Task<List<Suggestion>> GetSuggestions(GitRepository repository, IConfiguration configuration)
         {
-            if ((await repository.GetFileStatus()).Count > 0)
+            if (!(await repository.IsCleanWorkingFolder()))
                 return new List<Suggestion>();
 
             var currentBranch = await repository.GetCurrentBranch();
