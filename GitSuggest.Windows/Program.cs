@@ -24,7 +24,7 @@ namespace GitSuggest.Windows
                     path = LocateGitRepository(possiblePath) ?? possiblePath;
             }
 
-            mainForm.Configure(path, new Configuration());
+            mainForm.Configure(path);
             Application.Run(mainForm);
         }
 

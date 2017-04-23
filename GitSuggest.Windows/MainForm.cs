@@ -5,35 +5,32 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using GitSuggest.Windows.Controls;
+using GitSuggest.Windows.Properties;
 
 using JetBrains.Annotations;
 
 namespace GitSuggest.Windows
 {
-    internal partial class MainForm : Form, ISuggestionContainer
+    internal partial class MainForm : Form, ISuggestionContainer, IConfiguration
     {
         [CanBeNull]
         private SuggestionEngine _SuggestionEngine;
-
-        [CanBeNull]
-        private Configuration _Configuration;
 
         public MainForm()
         {
             InitializeComponent();
 
             Text = string.Format(Text, Assembly.GetExecutingAssembly().GetName().Version);
-            chkWait.Checked = Git.DefaultWaitOnSuccess;
             paRefreshing.Bounds = paSuggestions.Bounds;
+
+            chkAll.Checked = Settings.Default.ShowAll;
+            chkBrief.Checked = Settings.Default.Brief;
+            chkWait.Checked = Git.DefaultWaitOnSuccess = Settings.Default.WaitAfterSuccess;
         }
 
-        public void Configure([NotNull] string initialRepositoryPath, [NotNull] Configuration configuration)
+        public void Configure([NotNull] string initialRepositoryPath)
         {
             eRepositoryPath.Text = initialRepositoryPath;
-            chkAll.Checked = configuration.IncludeAllSuggestions;
-            chkBrief.Checked = configuration.Brief;
-
-            _Configuration = configuration;
 
 #pragma warning disable 4014 // ignore missing await
             RefreshSuggestionEngine();
@@ -42,9 +39,6 @@ namespace GitSuggest.Windows
 
         private async Task RefreshSuggestionEngine()
         {
-            if (_Configuration == null)
-                return;
-
             _SuggestionEngine = null;
             string repositoryPath = eRepositoryPath.Text.TrimEnd('/', '\\');
             if (!Directory.Exists(repositoryPath))
@@ -53,7 +47,7 @@ namespace GitSuggest.Windows
                 return;
             }
 
-            _SuggestionEngine = new SuggestionEngine(eRepositoryPath.Text, _Configuration);
+            _SuggestionEngine = new SuggestionEngine(eRepositoryPath.Text, this);
             await RefreshSuggestions();
             EnableDisableButtons();
         }
@@ -107,7 +101,7 @@ namespace GitSuggest.Windows
                 if (paSuggestions.Controls.Count > 0)
                     addControl(new Panel { Height = 8 });
 
-                addControl(new SuggestionControl(_SuggestionEngine.RepositoryPath, suggestion, _Configuration, this));
+                addControl(new SuggestionControl(_SuggestionEngine.RepositoryPath, suggestion, this, this));
             }
 
             paSuggestions.ResumeLayout();
@@ -122,20 +116,18 @@ namespace GitSuggest.Windows
 
         private async void chkAll_CheckedChanged(object sender, EventArgs e)
         {
-            if (_Configuration == null)
-                return;
-
-            _Configuration.IncludeAllSuggestions = chkAll.Checked;
             await RefreshSuggestions();
+
+            Settings.Default.ShowAll = chkAll.Checked;
+            Settings.Default.Save();
         }
 
         private async void chkBrief_CheckedChanged(object sender, EventArgs e)
         {
-            if (_Configuration == null)
-                return;
-
-            _Configuration.Brief = chkBrief.Checked;
             await RefreshSuggestions();
+
+            Settings.Default.Brief = chkBrief.Checked;
+            Settings.Default.Save();
         }
 
         private async void btnFetch_Click(object sender, EventArgs e)
@@ -156,6 +148,8 @@ namespace GitSuggest.Windows
         private void chkWait_CheckedChanged(object sender, EventArgs e)
         {
             Git.DefaultWaitOnSuccess = chkWait.Checked;
+            Settings.Default.WaitAfterSuccess = chkWait.Checked;
+            Settings.Default.Save();
         }
 
         private void paSuggestions_SizeChanged(object sender, EventArgs e)
@@ -167,5 +161,9 @@ namespace GitSuggest.Windows
         {
             paRefreshing.Bounds = paSuggestions.Bounds;
         }
+
+        bool IConfiguration.IncludeAllSuggestions => chkAll.Checked;
+
+        bool IConfiguration.Brief => chkBrief.Checked;
     }
 }
