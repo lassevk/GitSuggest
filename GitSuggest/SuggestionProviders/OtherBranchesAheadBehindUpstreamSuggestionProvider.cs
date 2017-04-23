@@ -22,8 +22,8 @@ namespace GitSuggest.SuggestionProviders
             var mergeActions = new List<SuggestedAction>();
             foreach (var branch in branches)
             {
-                if (branch.isCurrent)
-                    continue;
+                //if (branch.isCurrent)
+                //    continue;
 
                 string branchName = branch.branchName;
 

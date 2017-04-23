@@ -8,6 +8,9 @@ namespace GitSuggest.SuggestionProviders
     {
         public async Task<List<Suggestion>> GetSuggestions(GitRepository repository, IConfiguration configuration)
         {
+            if (await repository.IsMergeConflict())
+                return new List<Suggestion>();
+
             var unstagedFiles = await repository.GetUnstagedFiles();
 
             if (unstagedFiles.Count == 0)
