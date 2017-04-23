@@ -46,7 +46,7 @@ namespace GitSuggest.SuggestionProviders
             var suggestions = new List<Suggestion>();
             if (behind > 0)
             {
-                suggestions.Add(new Suggestion(_Rank - 25, $"Feature-branch '{currentBranch}' is {behind} commit{(behind != 1 ? "s" : "")} behind '{_TargetBranch}'",
+                suggestions.Add(new Suggestion(_Rank, $"Feature-branch '{currentBranch}' is {behind} commit{(behind != 1 ? "s" : "")} behind '{_TargetBranch}'",
                                                $"This means that other changes have been applied to '{_TargetBranch}' that has not yet been incorporated into '{currentBranch}'",
                                                new SuggestedAction($"View a diff between '{currentBranch}' and '{_TargetBranch}'", false, $"difftool -d \"{currentBranch}\" \"{_TargetBranch}\""),
                                                SuggestedAction.Verify,
@@ -54,7 +54,7 @@ namespace GitSuggest.SuggestionProviders
             }
             if (ahead > 0)
             {
-                suggestions.Add(new Suggestion(_Rank - 50, $"Feature-branch '{currentBranch}' is {ahead} commit{(ahead != 1 ? "s" : "")} ahead of '{_TargetBranch}'",
+                suggestions.Add(new Suggestion(_Rank - 25, $"Feature-branch '{currentBranch}' is {ahead} commit{(ahead != 1 ? "s" : "")} ahead of '{_TargetBranch}'",
                                                $"This means that you have commit on '{currentBranch}' that have not been incorporated into '{_TargetBranch}'",
                                                new SuggestedAction($"View a diff between '{currentBranch}' and '{_TargetBranch}'", false, $"difftool -d \"{currentBranch}\" \"{_TargetBranch}\""),
                                                SuggestedAction.Verify,
