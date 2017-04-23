@@ -59,6 +59,7 @@ namespace GitSuggest.Windows
 
                 control.Dock = DockStyle.Top;
                 control.Top = y;
+                control.BringToFront();
 
                 y += control.Height;
             }
