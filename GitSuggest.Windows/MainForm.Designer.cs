@@ -42,6 +42,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.paSuggestions = new System.Windows.Forms.Panel();
             this.paRefreshing = new System.Windows.Forms.Panel();
+            this.lblCurrentBranch = new System.Windows.Forms.Label();
+            this.eCurrentBranch = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.paToolbar.SuspendLayout();
             this.SuspendLayout();
@@ -50,12 +52,14 @@
             // 
             this.panel1.Controls.Add(this.paToolbar);
             this.panel1.Controls.Add(this.btnSelectFolder);
+            this.panel1.Controls.Add(this.eCurrentBranch);
             this.panel1.Controls.Add(this.eRepositoryPath);
+            this.panel1.Controls.Add(this.lblCurrentBranch);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(821, 87);
+            this.panel1.Size = new System.Drawing.Size(821, 119);
             this.panel1.TabIndex = 0;
             // 
             // paToolbar
@@ -68,7 +72,7 @@
             this.paToolbar.Controls.Add(this.btnStatus);
             this.paToolbar.Controls.Add(this.btnRefresh);
             this.paToolbar.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.paToolbar.Location = new System.Drawing.Point(0, 64);
+            this.paToolbar.Location = new System.Drawing.Point(0, 96);
             this.paToolbar.Name = "paToolbar";
             this.paToolbar.Size = new System.Drawing.Size(821, 23);
             this.paToolbar.TabIndex = 7;
@@ -191,9 +195,9 @@
             this.paSuggestions.AutoScroll = true;
             this.paSuggestions.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.paSuggestions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.paSuggestions.Location = new System.Drawing.Point(0, 87);
+            this.paSuggestions.Location = new System.Drawing.Point(0, 119);
             this.paSuggestions.Name = "paSuggestions";
-            this.paSuggestions.Size = new System.Drawing.Size(821, 285);
+            this.paSuggestions.Size = new System.Drawing.Size(821, 253);
             this.paSuggestions.TabIndex = 1;
             this.paSuggestions.LocationChanged += new System.EventHandler(this.paSuggestions_LocationChanged);
             this.paSuggestions.SizeChanged += new System.EventHandler(this.paSuggestions_SizeChanged);
@@ -205,6 +209,27 @@
             this.paRefreshing.Size = new System.Drawing.Size(200, 100);
             this.paRefreshing.TabIndex = 0;
             this.paRefreshing.Visible = false;
+            // 
+            // lblCurrentBranch
+            // 
+            this.lblCurrentBranch.AutoSize = true;
+            this.lblCurrentBranch.Location = new System.Drawing.Point(12, 52);
+            this.lblCurrentBranch.Name = "lblCurrentBranch";
+            this.lblCurrentBranch.Size = new System.Drawing.Size(77, 13);
+            this.lblCurrentBranch.TabIndex = 0;
+            this.lblCurrentBranch.Text = "Current branch";
+            // 
+            // eCurrentBranch
+            // 
+            this.eCurrentBranch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.eCurrentBranch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.eCurrentBranch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
+            this.eCurrentBranch.Location = new System.Drawing.Point(12, 68);
+            this.eCurrentBranch.Name = "eCurrentBranch";
+            this.eCurrentBranch.ReadOnly = true;
+            this.eCurrentBranch.Size = new System.Drawing.Size(797, 20);
+            this.eCurrentBranch.TabIndex = 1;
             // 
             // MainForm
             // 
@@ -240,6 +265,8 @@
         private System.Windows.Forms.CheckBox chkWait;
         private System.Windows.Forms.Panel paRefreshing;
         private System.Windows.Forms.Button btnPrompt;
+        private System.Windows.Forms.TextBox eCurrentBranch;
+        private System.Windows.Forms.Label lblCurrentBranch;
     }
 }
 

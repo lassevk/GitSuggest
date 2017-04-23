@@ -50,6 +50,8 @@ namespace GitSuggest.Windows
 
             _SuggestionEngine = new SuggestionEngine(eRepositoryPath.Text, this);
             await RefreshSuggestions();
+            var repository = new GitRepository(_SuggestionEngine.RepositoryPath);
+            eCurrentBranch.Text = await repository.GetCurrentBranch() ?? string.Empty;
             EnableDisableButtons();
         }
 
