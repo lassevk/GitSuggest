@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 using JetBrains.Annotations;
@@ -45,6 +48,16 @@ namespace GitSuggest.CommandLine
                 throw new ArgumentNullException(nameof(args));
 
             IConfiguration configuration = new Configuration(args);
+            if (args.Any(a => a == "-u" || a == "--ui"))
+            {
+                var uiExecutable = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "GitSuggest.Windows.exe");
+                if (File.Exists(uiExecutable))
+                    Process.Start(uiExecutable);
+                else
+                    throw new ErrorMessageException(1, "Unable to locate UI executable");
+
+                return;
+            }
             var engine = new SuggestionEngine(".", configuration);
 
             var suggestions = await engine.GetSuggestions();

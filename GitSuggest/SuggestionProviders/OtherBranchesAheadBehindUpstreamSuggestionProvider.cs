@@ -48,14 +48,14 @@ namespace GitSuggest.SuggestionProviders
 
             var suggestions = new List<Suggestion>();
             if (mergeActions.Count > 0)
-                suggestions.Add(new Suggestion(400, $"You have {mergeActions.Count} branch{(mergeActions.Count != 1 ? "es" : "")} that needs to be merged", "", mergeActions.ToArray()));
+                suggestions.Add(new Suggestion(450, $"You have {mergeActions.Count} branch{(mergeActions.Count != 1 ? "es" : "")} that needs to be merged", "", mergeActions.ToArray()));
             if (pullActions.Count > 0)
-                suggestions.Add(new Suggestion(390, $"You have {pullActions.Count} branch{(pullActions.Count != 1 ? "es" : "")} that are behind and can be updated through a fast-forward", "", pullActions.ToArray()));
+                suggestions.Add(new Suggestion(440, $"You have {pullActions.Count} branch{(pullActions.Count != 1 ? "es" : "")} that are behind and can be updated through a fast-forward", "", pullActions.ToArray()));
             if (pushActions.Count > 0)
             {
                 if (pushActions.Count > 1)
                     pushActions.Insert(0, new SuggestedAction("Push all branches", true, "push --all"));
-                suggestions.Add(new Suggestion(380, $"You have {pushActions.Count} branch{(pushActions.Count != 1 ? "es" : "")} that are ahead of their remote and can be pushed", "", pushActions.ToArray()));
+                suggestions.Add(new Suggestion(430, $"You have {pushActions.Count} branch{(pushActions.Count != 1 ? "es" : "")} that are ahead of their remote and can be pushed", "", pushActions.ToArray()));
             }
 
             return suggestions;
