@@ -52,9 +52,9 @@ namespace GitSuggest.Windows
                 paSuggestions.Controls[0].Dispose();
 
             int y = 0;
-            foreach (var suggestion in await _SuggestionEngine.GetSuggestions())
+
+            void addControl(Control control)
             {
-                var control = new SuggestionControl(suggestion, _Configuration);
                 paSuggestions.Controls.Add(control);
 
                 control.Dock = DockStyle.Top;
@@ -62,6 +62,14 @@ namespace GitSuggest.Windows
                 control.BringToFront();
 
                 y += control.Height;
+            }
+
+            foreach (var suggestion in await _SuggestionEngine.GetSuggestions())
+            {
+                if (paSuggestions.Controls.Count > 0)
+                    addControl(new Panel { Height = 8 });
+
+                addControl(new SuggestionControl(suggestion, _Configuration));
             }
         }
 
