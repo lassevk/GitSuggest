@@ -65,11 +65,24 @@ namespace GitSuggest.Windows.Controls
         {
             btnExecute.Enabled = false;
 
-            await new Git(_RepositoryPath, _ForceWait).Execute(_Action.Commands.ToArray());
-
-            btnExecute.Enabled = true;
+            bool wasRefreshed = false;
             if (_Action.ShouldRefreshAfterExecuting)
-                _SuggestionContainer.RefreshSuggestions();
+                _SuggestionContainer.PendRefresh(true);
+            try
+            {
+                await new Git(_RepositoryPath, _ForceWait).Execute(_Action.Commands.ToArray());
+                btnExecute.Enabled = true;
+                if (_Action.ShouldRefreshAfterExecuting)
+                {
+                    _SuggestionContainer.RefreshSuggestions();
+                    wasRefreshed = true;
+                }
+            }
+            finally
+            {
+                if (_Action.ShouldRefreshAfterExecuting && !wasRefreshed)
+                    _SuggestionContainer.PendRefresh(false);
+            }
         }
     }
 }

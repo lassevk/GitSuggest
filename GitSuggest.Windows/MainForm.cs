@@ -24,6 +24,7 @@ namespace GitSuggest.Windows
 
             Text = string.Format(Text, Assembly.GetExecutingAssembly().GetName().Version);
             chkWait.Checked = Git.DefaultWaitOnSuccess;
+            paRefreshing.Bounds = paSuggestions.Bounds;
         }
 
         public void Configure([NotNull] string initialRepositoryPath, [NotNull] Configuration configuration)
@@ -65,6 +66,13 @@ namespace GitSuggest.Windows
             chkBrief.Enabled = _SuggestionEngine != null;
         }
 
+        void ISuggestionContainer.PendRefresh(bool isPending)
+        {
+            paRefreshing.Visible = isPending;
+            paRefreshing.BringToFront();
+            paSuggestions.Enabled = !isPending;
+        }
+
         void ISuggestionContainer.RefreshSuggestions()
         {
 #pragma warning disable 4014
@@ -74,6 +82,9 @@ namespace GitSuggest.Windows
 
         private async Task RefreshSuggestions()
         {
+            paRefreshing.Visible = true;
+            paRefreshing.BringToFront();
+
             paSuggestions.SuspendLayout();
 
             while (paSuggestions.Controls.Count > 0)
@@ -100,6 +111,8 @@ namespace GitSuggest.Windows
             }
 
             paSuggestions.ResumeLayout();
+            paSuggestions.Enabled = true;
+            paRefreshing.Visible = false;
         }
 
         private async void btnRefresh_Click(object sender, EventArgs e)
@@ -143,6 +156,16 @@ namespace GitSuggest.Windows
         private void chkWait_CheckedChanged(object sender, EventArgs e)
         {
             Git.DefaultWaitOnSuccess = chkWait.Checked;
+        }
+
+        private void paSuggestions_SizeChanged(object sender, EventArgs e)
+        {
+            paRefreshing.Bounds = paSuggestions.Bounds;
+        }
+
+        private void paSuggestions_LocationChanged(object sender, EventArgs e)
+        {
+            paRefreshing.Bounds = paSuggestions.Bounds;
         }
     }
 }
