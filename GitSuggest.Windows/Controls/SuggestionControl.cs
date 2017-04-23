@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -26,12 +27,44 @@ namespace GitSuggest.Windows.Controls
 
             if (_Configuration.Brief || string.IsNullOrWhiteSpace(lblDescription.Text))
                 lblDescription.Visible = false;
+
+            int y = 0;
+            void addControl(Control control)
+            {
+                paActions.Controls.Add(control);
+
+                control.Dock = DockStyle.Top;
+                control.Top = y;
+                control.BringToFront();
+
+                y += control.Height;
+            }
+
+            foreach (var action in _Suggestion.Actions)
+            {
+                if (action == SuggestedAction.Verify)
+                    continue;
+
+                //if (paActions.Controls.Count > 0)
+                //    addControl(new Panel { Height = 8 });
+
+                addControl(new SuggestedActionControl(action, _Configuration));
+            }
+
+            ResizeControlsAndContainer();
         }
 
         private void SuggestionControl_Resize(object sender, EventArgs e)
         {
+            ResizeControlsAndContainer();
+        }
+
+        private void ResizeControlsAndContainer()
+        {
             lblTitle.MaximumSize = new Size(ClientSize.Width - lblTitle.Left * 2, 0);
             lblDescription.MaximumSize = new Size(ClientSize.Width - lblTitle.Left * 2, 0);
+
+            paActions.Height = paActions.Controls.OfType<Control>().Sum(ctrl => ctrl.Height);
 
             Height = Controls.OfType<Control>().Where(ctrl => ctrl != lblSeparator).Max(ctrl => ctrl.Bottom) + 4;
         }

@@ -29,61 +29,30 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.chkBrief = new System.Windows.Forms.CheckBox();
-            this.chkAll = new System.Windows.Forms.CheckBox();
-            this.btnRefresh = new System.Windows.Forms.Button();
             this.btnSelectFolder = new System.Windows.Forms.Button();
             this.eRepositoryPath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.paSuggestions = new System.Windows.Forms.Panel();
+            this.paToolbar = new System.Windows.Forms.Panel();
+            this.btnStatus = new System.Windows.Forms.Button();
+            this.btnRefresh = new System.Windows.Forms.Button();
+            this.chkAll = new System.Windows.Forms.CheckBox();
+            this.chkBrief = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
+            this.paToolbar.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.chkBrief);
-            this.panel1.Controls.Add(this.chkAll);
-            this.panel1.Controls.Add(this.btnRefresh);
+            this.panel1.Controls.Add(this.paToolbar);
             this.panel1.Controls.Add(this.btnSelectFolder);
             this.panel1.Controls.Add(this.eRepositoryPath);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(714, 85);
+            this.panel1.Size = new System.Drawing.Size(714, 79);
             this.panel1.TabIndex = 0;
-            // 
-            // chkBrief
-            // 
-            this.chkBrief.AutoSize = true;
-            this.chkBrief.Location = new System.Drawing.Point(225, 56);
-            this.chkBrief.Name = "chkBrief";
-            this.chkBrief.Size = new System.Drawing.Size(109, 17);
-            this.chkBrief.TabIndex = 5;
-            this.chkBrief.Text = "Brief explanations";
-            this.chkBrief.UseVisualStyleBackColor = true;
-            this.chkBrief.CheckedChanged += new System.EventHandler(this.chkBrief_CheckedChanged);
-            // 
-            // chkAll
-            // 
-            this.chkAll.AutoSize = true;
-            this.chkAll.Location = new System.Drawing.Point(94, 56);
-            this.chkAll.Name = "chkAll";
-            this.chkAll.Size = new System.Drawing.Size(125, 17);
-            this.chkAll.TabIndex = 4;
-            this.chkAll.Text = "Show all suggestions";
-            this.chkAll.UseVisualStyleBackColor = true;
-            this.chkAll.CheckedChanged += new System.EventHandler(this.chkAll_CheckedChanged);
-            // 
-            // btnRefresh
-            // 
-            this.btnRefresh.Location = new System.Drawing.Point(13, 52);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
-            this.btnRefresh.TabIndex = 3;
-            this.btnRefresh.Text = "Refresh";
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // btnSelectFolder
             // 
@@ -120,10 +89,69 @@
             this.paSuggestions.AutoScroll = true;
             this.paSuggestions.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.paSuggestions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.paSuggestions.Location = new System.Drawing.Point(0, 85);
+            this.paSuggestions.Location = new System.Drawing.Point(0, 79);
             this.paSuggestions.Name = "paSuggestions";
-            this.paSuggestions.Size = new System.Drawing.Size(714, 287);
+            this.paSuggestions.Size = new System.Drawing.Size(714, 293);
             this.paSuggestions.TabIndex = 1;
+            // 
+            // paToolbar
+            // 
+            this.paToolbar.Controls.Add(this.chkBrief);
+            this.paToolbar.Controls.Add(this.chkAll);
+            this.paToolbar.Controls.Add(this.btnStatus);
+            this.paToolbar.Controls.Add(this.btnRefresh);
+            this.paToolbar.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.paToolbar.Location = new System.Drawing.Point(0, 56);
+            this.paToolbar.Name = "paToolbar";
+            this.paToolbar.Size = new System.Drawing.Size(714, 23);
+            this.paToolbar.TabIndex = 7;
+            // 
+            // btnStatus
+            // 
+            this.btnStatus.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnStatus.Location = new System.Drawing.Point(75, 0);
+            this.btnStatus.Name = "btnStatus";
+            this.btnStatus.Size = new System.Drawing.Size(75, 23);
+            this.btnStatus.TabIndex = 7;
+            this.btnStatus.Text = "Status";
+            this.btnStatus.UseVisualStyleBackColor = true;
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnRefresh.Location = new System.Drawing.Point(0, 0);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btnRefresh.TabIndex = 8;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // chkAll
+            // 
+            this.chkAll.AutoSize = true;
+            this.chkAll.Dock = System.Windows.Forms.DockStyle.Left;
+            this.chkAll.Location = new System.Drawing.Point(150, 0);
+            this.chkAll.Name = "chkAll";
+            this.chkAll.Padding = new System.Windows.Forms.Padding(4, 2, 0, 0);
+            this.chkAll.Size = new System.Drawing.Size(129, 23);
+            this.chkAll.TabIndex = 9;
+            this.chkAll.Text = "Show all suggestions";
+            this.chkAll.UseVisualStyleBackColor = true;
+            this.chkAll.Click += new System.EventHandler(this.chkAll_CheckedChanged);
+            // 
+            // chkBrief
+            // 
+            this.chkBrief.AutoSize = true;
+            this.chkBrief.Dock = System.Windows.Forms.DockStyle.Left;
+            this.chkBrief.Location = new System.Drawing.Point(279, 0);
+            this.chkBrief.Name = "chkBrief";
+            this.chkBrief.Padding = new System.Windows.Forms.Padding(4, 2, 0, 0);
+            this.chkBrief.Size = new System.Drawing.Size(113, 23);
+            this.chkBrief.TabIndex = 10;
+            this.chkBrief.Text = "Brief explanations";
+            this.chkBrief.UseVisualStyleBackColor = true;
+            this.chkBrief.Click += new System.EventHandler(this.chkBrief_CheckedChanged);
             // 
             // MainForm
             // 
@@ -136,6 +164,8 @@
             this.Text = "GitSuggest v{0}";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.paToolbar.ResumeLayout(false);
+            this.paToolbar.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -146,10 +176,12 @@
         private System.Windows.Forms.Button btnSelectFolder;
         private System.Windows.Forms.TextBox eRepositoryPath;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Panel paSuggestions;
+        private System.Windows.Forms.Panel paToolbar;
         private System.Windows.Forms.CheckBox chkBrief;
         private System.Windows.Forms.CheckBox chkAll;
+        private System.Windows.Forms.Button btnStatus;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }
 

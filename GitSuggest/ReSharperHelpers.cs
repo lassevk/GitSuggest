@@ -18,10 +18,4 @@ namespace GitSuggest
             // Do nothing
         }
     }
-
-    internal static class Extensions
-    {
-        [ContractAnnotation("null => halt"), NotNull]
-        internal static T AssumeNotNull<T>(this T value) => value;
-    }
 }

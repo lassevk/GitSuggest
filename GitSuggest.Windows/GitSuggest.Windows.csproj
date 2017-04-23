@@ -129,6 +129,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration.cs" />
+    <Compile Include="Controls\SuggestedActionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\SuggestedActionControl.Designer.cs">
+      <DependentUpon>SuggestedActionControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SuggestionControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -143,6 +149,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controls\SuggestedActionControl.resx">
+      <DependentUpon>SuggestedActionControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\SuggestionControl.resx">
       <DependentUpon>SuggestionControl.cs</DependentUpon>
     </EmbeddedResource>

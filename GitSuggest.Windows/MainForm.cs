@@ -48,11 +48,12 @@ namespace GitSuggest.Windows
 
         private async Task RefreshSuggestions()
         {
+            paSuggestions.SuspendLayout();
+
             while (paSuggestions.Controls.Count > 0)
                 paSuggestions.Controls[0].Dispose();
 
             int y = 0;
-
             void addControl(Control control)
             {
                 paSuggestions.Controls.Add(control);
@@ -71,6 +72,8 @@ namespace GitSuggest.Windows
 
                 addControl(new SuggestionControl(suggestion, _Configuration));
             }
+
+            paSuggestions.ResumeLayout();
         }
 
         private async void btnRefresh_Click(object sender, EventArgs e)
