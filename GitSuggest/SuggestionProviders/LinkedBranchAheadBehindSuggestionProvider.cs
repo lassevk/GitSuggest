@@ -36,10 +36,10 @@ namespace GitSuggest.SuggestionProviders
             if (currentBranch == null || !_BranchNamePredicate(currentBranch))
                 return new List<Suggestion>();
 
-            if (!await repository.BranchExists("develop"))
+            if (!await repository.BranchExists(_TargetBranch))
                 return new List<Suggestion>();
 
-            var (ahead, behind) = await repository.GetAheadBehind(currentBranch, "develop");
+            var (ahead, behind) = await repository.GetAheadBehind(currentBranch, _TargetBranch);
             if (ahead == 0 && behind == 0)
                 return new List<Suggestion>();
 
