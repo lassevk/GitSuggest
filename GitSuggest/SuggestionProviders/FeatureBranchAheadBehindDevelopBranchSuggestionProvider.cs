@@ -31,7 +31,7 @@ namespace GitSuggest.SuggestionProviders
                 return new List<Suggestion>();
 
             var currentBranch = await repository.GetCurrentBranch();
-            if (!currentBranch?.StartsWith("feature/") ?? false)
+            if (currentBranch == null || !_BranchNamePredicate(currentBranch))
                 return new List<Suggestion>();
 
             if (!await repository.BranchExists("develop"))

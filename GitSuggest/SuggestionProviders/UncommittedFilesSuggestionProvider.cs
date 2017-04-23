@@ -18,6 +18,8 @@ namespace GitSuggest.SuggestionProviders
                              new Suggestion(1000, "There are staged files on disk that can be committed", "",
                                             new SuggestedAction("List all staged files", false, "status"),
                                             SuggestedAction.Verify,
+                                            new SuggestedAction("Show diff for all staged files", false, "difftool -d --cached"),
+                                            SuggestedAction.Verify,
                                             new SuggestedAction("Commit staged files", true, "commit")),
                              new Suggestion(800, "There are staged files on disk that can be checked out to undo their content", "WARNING: Checking out a file will remove your local changes, there is no undo")
                          };

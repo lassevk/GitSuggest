@@ -132,7 +132,7 @@ namespace GitSuggest
 
         public async Task<bool> BranchExists(string branchName)
         {
-            var (exitcode, _) = await ExecuteGit("rev-parse \"{branchName}\"");
+            var (exitcode, _) = await ExecuteGit($"rev-parse \"{branchName}\"");
             return exitcode == 0;
         }
     }
