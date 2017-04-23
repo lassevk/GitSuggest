@@ -41,6 +41,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.paSuggestions = new System.Windows.Forms.Panel();
             this.paRefreshing = new System.Windows.Forms.Panel();
+            this.btnPrompt = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.paToolbar.SuspendLayout();
             this.SuspendLayout();
@@ -54,7 +55,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(714, 79);
+            this.panel1.Size = new System.Drawing.Size(714, 87);
             this.panel1.TabIndex = 0;
             // 
             // paToolbar
@@ -62,11 +63,12 @@
             this.paToolbar.Controls.Add(this.chkWait);
             this.paToolbar.Controls.Add(this.chkBrief);
             this.paToolbar.Controls.Add(this.chkAll);
+            this.paToolbar.Controls.Add(this.btnPrompt);
             this.paToolbar.Controls.Add(this.btnFetch);
             this.paToolbar.Controls.Add(this.btnStatus);
             this.paToolbar.Controls.Add(this.btnRefresh);
             this.paToolbar.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.paToolbar.Location = new System.Drawing.Point(0, 56);
+            this.paToolbar.Location = new System.Drawing.Point(0, 64);
             this.paToolbar.Name = "paToolbar";
             this.paToolbar.Size = new System.Drawing.Size(714, 23);
             this.paToolbar.TabIndex = 7;
@@ -75,7 +77,7 @@
             // 
             this.chkWait.AutoSize = true;
             this.chkWait.Dock = System.Windows.Forms.DockStyle.Left;
-            this.chkWait.Location = new System.Drawing.Point(467, 0);
+            this.chkWait.Location = new System.Drawing.Point(542, 0);
             this.chkWait.Name = "chkWait";
             this.chkWait.Padding = new System.Windows.Forms.Padding(4, 2, 0, 0);
             this.chkWait.Size = new System.Drawing.Size(183, 23);
@@ -88,7 +90,7 @@
             // 
             this.chkBrief.AutoSize = true;
             this.chkBrief.Dock = System.Windows.Forms.DockStyle.Left;
-            this.chkBrief.Location = new System.Drawing.Point(354, 0);
+            this.chkBrief.Location = new System.Drawing.Point(429, 0);
             this.chkBrief.Name = "chkBrief";
             this.chkBrief.Padding = new System.Windows.Forms.Padding(4, 2, 0, 0);
             this.chkBrief.Size = new System.Drawing.Size(113, 23);
@@ -101,7 +103,7 @@
             // 
             this.chkAll.AutoSize = true;
             this.chkAll.Dock = System.Windows.Forms.DockStyle.Left;
-            this.chkAll.Location = new System.Drawing.Point(225, 0);
+            this.chkAll.Location = new System.Drawing.Point(300, 0);
             this.chkAll.Name = "chkAll";
             this.chkAll.Padding = new System.Windows.Forms.Padding(4, 2, 0, 0);
             this.chkAll.Size = new System.Drawing.Size(129, 23);
@@ -178,20 +180,31 @@
             this.paSuggestions.AutoScroll = true;
             this.paSuggestions.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.paSuggestions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.paSuggestions.Location = new System.Drawing.Point(0, 79);
+            this.paSuggestions.Location = new System.Drawing.Point(0, 87);
             this.paSuggestions.Name = "paSuggestions";
-            this.paSuggestions.Size = new System.Drawing.Size(714, 293);
+            this.paSuggestions.Size = new System.Drawing.Size(714, 285);
             this.paSuggestions.TabIndex = 1;
             this.paSuggestions.LocationChanged += new System.EventHandler(this.paSuggestions_LocationChanged);
             this.paSuggestions.SizeChanged += new System.EventHandler(this.paSuggestions_SizeChanged);
             // 
             // paRefreshing
             // 
-            this.paRefreshing.Location = new System.Drawing.Point(247, 77);
+            this.paRefreshing.Location = new System.Drawing.Point(473, 260);
             this.paRefreshing.Name = "paRefreshing";
             this.paRefreshing.Size = new System.Drawing.Size(200, 100);
             this.paRefreshing.TabIndex = 0;
             this.paRefreshing.Visible = false;
+            // 
+            // btnPrompt
+            // 
+            this.btnPrompt.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnPrompt.Location = new System.Drawing.Point(225, 0);
+            this.btnPrompt.Name = "btnPrompt";
+            this.btnPrompt.Size = new System.Drawing.Size(75, 23);
+            this.btnPrompt.TabIndex = 13;
+            this.btnPrompt.Text = "Prompt";
+            this.btnPrompt.UseVisualStyleBackColor = true;
+            this.btnPrompt.Click += new System.EventHandler(this.btnPrompt_Click);
             // 
             // MainForm
             // 
@@ -226,6 +239,7 @@
         private System.Windows.Forms.Button btnFetch;
         private System.Windows.Forms.CheckBox chkWait;
         private System.Windows.Forms.Panel paRefreshing;
+        private System.Windows.Forms.Button btnPrompt;
     }
 }
 

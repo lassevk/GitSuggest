@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -165,5 +166,27 @@ namespace GitSuggest.Windows
         bool IConfiguration.IncludeAllSuggestions => chkAll.Checked;
 
         bool IConfiguration.Brief => chkBrief.Checked;
+
+        private void btnPrompt_Click(object sender, EventArgs e)
+        {
+            var prompts = new[]
+                          {
+                              Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "JPSoft", "TCMD20", "TCC.exe"),
+                              Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "JPSoft", "TCMD20", "TCC.exe"),
+                              Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "cmd.exe"),
+                          };
+
+            foreach (var prompt in prompts)
+                if (File.Exists(prompt))
+                {
+                    Process.Start(new ProcessStartInfo(prompt, "/NOSTART")
+                                  {
+                                      WorkingDirectory = (_SuggestionEngine?.RepositoryPath ?? eRepositoryPath.Text)
+                                  });
+                    return;
+                }
+
+            MessageBox.Show("Unable to figure out which command prompt process to start");
+        }
     }
 }
