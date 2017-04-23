@@ -18,6 +18,8 @@ namespace GitSuggest.SuggestionProviders
                              new Suggestion(1200, "There are unstaged files on disk that should be added before committing", "",
                                             new SuggestedAction("List all unstaged files", false, "status"),
                                             SuggestedAction.Verify,
+                                            new SuggestedAction("Show diff for all unstaged and untracked files", false, "difftool -d"),
+                                            SuggestedAction.Verify,
                                             new SuggestedAction("Add all unstaged (and untracked) files to the index", true, "add .")),
                              new Suggestion(800, "There are unstaged files on disk that can be checked out to undo their content", "WARNING: Checking out a file will remove your local changes, there is no undo")
                          };

@@ -5,3 +5,5 @@
 1000: Staged files (commit)
 600: feature-branch ahead/behind develop branch (pull/merge)
 500: ahead/behind upstream (pull/push)
+400: other branch is ahead/behind upstream
+375: push as new branch

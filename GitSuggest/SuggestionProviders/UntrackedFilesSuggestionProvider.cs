@@ -19,6 +19,8 @@ namespace GitSuggest.SuggestionProviders
                              new Suggestion(1200, "There are untracked files on disk that should be added before committing", description,
                                             new SuggestedAction("List all untracked files", false, "status"),
                                             SuggestedAction.Verify,
+                                            new SuggestedAction("Show diff for all untracked and unstaged files", false, "difftool -d --cached"),
+                                            SuggestedAction.Verify,
                                             new SuggestedAction("Add all untracked (and unstaged) files to the index", true, "add .")),
 
                 new Suggestion(800, "There are untracked files on disk that can be cleaned", description + Environment.NewLine + "WARNING: Cleaning files will remove them, there is no undo",
