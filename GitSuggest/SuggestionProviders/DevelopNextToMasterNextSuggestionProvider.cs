@@ -3,7 +3,7 @@
     internal class DevelopNextToMasterNextSuggestionProvider : LinkedBranchAheadBehindSuggestionProvider
     {
         public DevelopNextToMasterNextSuggestionProvider()
-            : base(branch => branch == "develop/next", "master", 400)
+            : base("Development branch", branch => branch == "develop/next", "master", 400, true)
         {
         }
     }

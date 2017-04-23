@@ -7,7 +7,7 @@ namespace GitSuggest.SuggestionProviders
     internal class Develop64ToDevelop65SuggestionProvider : LinkedBranchAheadBehindSuggestionProvider
     {
         public Develop64ToDevelop65SuggestionProvider()
-            : base(branch => branch == "develop/6.4", "develop/6.5", 400)
+            : base("Development branch", branch => branch == "develop/6.4", "develop/6.5", 400, false)
         {
         }
     }
