@@ -42,9 +42,22 @@ namespace GitSuggest.SuggestionProviders
                 return new List<Suggestion>();
 
             var suggestions = new List<Suggestion>();
+            if (ahead != 0 || behind != 0)
+            {
+                string title = $"Feature-branch '{currentBranch}' has diverged from '{_TargetBranch}'";
+                if (ahead != 0 && behind != 0)
+                    title += $" ({ahead} commit{(ahead != 1 ? "s" : "")} ahead and {behind} behind)";
+                else if (ahead != 0)
+                    title += $" ({ahead} commit{(ahead != 1 ? "s" : "")} ahead)";
+                else
+                    title += $" ({behind} commit{(behind != 1 ? "s" : "")} behind)";
+                suggestions.Add(new Suggestion(600, title,
+                                               "You should analyze the differences before performing the appropriate action",
+                                               new SuggestedAction($"View a diff between '{currentBranch}' and '{_TargetBranch}'", false, $"difftool -d \"{currentBranch}\" \"{_TargetBranch}\"")));
+            }
             if (behind > 0)
             {
-                suggestions.Add(new Suggestion(600, $"Feature-branch '{currentBranch}' is {behind} commit{(behind != 1 ? "s" : "")} behind '{_TargetBranch}'",
+                suggestions.Add(new Suggestion(575, $"Feature-branch '{currentBranch}' is {behind} commit{(behind != 1 ? "s" : "")} behind '{_TargetBranch}'",
                                                $"This means that other changes have been applied to '{_TargetBranch}' that has not yet been incorporated into '{currentBranch}'",
                                                new SuggestedAction($"Pull from '{_TargetBranch}' into '{currentBranch}'", true, $"pull \"{_TargetBranch}\"")));
             }
