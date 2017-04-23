@@ -135,5 +135,29 @@ namespace GitSuggest
             var (exitcode, _) = await ExecuteGit($"rev-parse \"{branchName}\"");
             return exitcode == 0;
         }
+
+        [NotNull, ItemCanBeNull]
+        public async Task<List<(bool isCurrent, string branchName)>> GetBranches()
+        {
+            var (exitcode, lines) = await ExecuteGit($"branch --list");
+            if (exitcode == 0)
+                return null;
+
+            var result = new List<(bool isCurrent, string branchName)>();
+            foreach (var line in lines)
+            {
+                if (line.Length < 2)
+                    continue;
+
+                bool isCurrent = line[0] == '*';
+                string branchName = line.Substring(2).Trim();
+                if (string.IsNullOrWhiteSpace(branchName))
+                    continue;
+
+                result.Add((isCurrent, branchName));
+            }
+
+            return result;
+        }
     }
 }
