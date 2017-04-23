@@ -67,7 +67,7 @@ namespace GitSuggest.Windows
         void ISuggestionContainer.RefreshSuggestions()
         {
 #pragma warning disable 4014
-            RefreshSuggestions();
+            RefreshSuggestionEngine();
 #pragma warning restore 4014
         }
 
