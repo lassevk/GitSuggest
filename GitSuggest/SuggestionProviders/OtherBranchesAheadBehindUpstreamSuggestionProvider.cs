@@ -38,12 +38,12 @@ namespace GitSuggest.SuggestionProviders
                     suggestions.Add(new Suggestion(400, $"Branch '{branchName}' is {ahead} commit{(ahead != 1 ? "s" : "")} ahead of and {behind} behind '{upstream}'", "",
                                                    new SuggestedAction($"Checkout '{branch}' and pull '{upstream}' into '{branchName}' to update and merge changes", true, $"checkout {branchName}", "pull")));
                 else if (behind != 0)
-                    suggestions.Add(new Suggestion(400, $"Branch '{branch}' is {behind} commit{(behind != 1 ? "s" : "")} behind '{upstream}'", "",
+                    suggestions.Add(new Suggestion(400, $"Branch '{branchName}' is {behind} commit{(behind != 1 ? "s" : "")} behind '{upstream}'", "",
                                                    new SuggestedAction($"Checkout '{branchName}' and pull '{upstream}' into '{branch}' to update through a fast-forward", true, $"checkout {branchName}", "pull")));
                 else if (ahead != 0 && upstream.IndexOf('/') > 0)
                 {
                     var remote = upstream.Substring(0, upstream.IndexOf('/'));
-                    suggestions.Add(new Suggestion(400, $"Branch '{branch}' is {ahead} commit{(ahead != 1 ? "s" : "")} ahead of '{upstream}'", "",
+                    suggestions.Add(new Suggestion(400, $"Branch '{branchName}' is {ahead} commit{(ahead != 1 ? "s" : "")} ahead of '{upstream}'", "",
                                                    new SuggestedAction($"Push '{branch}' to '{upstream}' to update remote", true, $"push {remote} {branchName}")));
                 }
             }
