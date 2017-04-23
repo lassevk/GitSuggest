@@ -14,10 +14,13 @@ namespace GitSuggest.SuggestionProviders
         [NotNull]
         private readonly string _TargetBranch;
 
-        internal LinkedBranchAheadBehindSuggestionProvider([NotNull] Predicate<string> branchNamePredicate, [NotNull] string targetBranch)
+        private readonly int _Rank;
+
+        internal LinkedBranchAheadBehindSuggestionProvider([NotNull] Predicate<string> branchNamePredicate, [NotNull] string targetBranch, int rank)
         {
             _BranchNamePredicate = branchNamePredicate;
             _TargetBranch = targetBranch;
+            _Rank = rank;
             if (branchNamePredicate == null)
                 throw new ArgumentNullException(nameof(branchNamePredicate));
             if (targetBranch == null)
@@ -50,19 +53,19 @@ namespace GitSuggest.SuggestionProviders
                     title += $" ({ahead} commit{(ahead != 1 ? "s" : "")} ahead)";
                 else
                     title += $" ({behind} commit{(behind != 1 ? "s" : "")} behind)";
-                suggestions.Add(new Suggestion(600, title,
+                suggestions.Add(new Suggestion(_Rank, title,
                                                "You should analyze the differences before performing the appropriate action",
                                                new SuggestedAction($"View a diff between '{currentBranch}' and '{_TargetBranch}'", false, $"difftool -d \"{currentBranch}\" \"{_TargetBranch}\"")));
             }
             if (behind > 0)
             {
-                suggestions.Add(new Suggestion(575, $"Feature-branch '{currentBranch}' is {behind} commit{(behind != 1 ? "s" : "")} behind '{_TargetBranch}'",
+                suggestions.Add(new Suggestion(_Rank - 25, $"Feature-branch '{currentBranch}' is {behind} commit{(behind != 1 ? "s" : "")} behind '{_TargetBranch}'",
                                                $"This means that other changes have been applied to '{_TargetBranch}' that has not yet been incorporated into '{currentBranch}'",
                                                new SuggestedAction($"Pull from '{_TargetBranch}' into '{currentBranch}'", true, $"pull \"{_TargetBranch}\"")));
             }
             if (ahead > 0)
             {
-                suggestions.Add(new Suggestion(550, $"Feature-branch '{currentBranch}' is {ahead} commit{(ahead != 1 ? "s" : "")} ahead of '{_TargetBranch}'",
+                suggestions.Add(new Suggestion(_Rank - 50, $"Feature-branch '{currentBranch}' is {ahead} commit{(ahead != 1 ? "s" : "")} ahead of '{_TargetBranch}'",
                                                $"This means that you have commit on '{currentBranch}' that have not been incorporated into '{_TargetBranch}'",
                                                new SuggestedAction($"Check out '{_TargetBranch}' and merge in '{currentBranch}'", true, $"checkout {_TargetBranch}", $"merge {currentBranch}")));
             }
