@@ -6,6 +6,8 @@ using System.Windows.Forms;
 
 using JetBrains.Annotations;
 
+using Linqy;
+
 namespace GitSuggest.Windows.Controls
 {
     public partial class SuggestionControl : UserControl
@@ -41,12 +43,12 @@ namespace GitSuggest.Windows.Controls
                 y += control.Height;
             }
 
-            foreach (var action in suggestion.Actions)
+            foreach (var action in suggestion.Actions.Lead())
             {
-                if (action == SuggestedAction.Verify)
+                if (action.Element == SuggestedAction.Verify)
                     continue;
 
-                addControl(new SuggestedActionControl(repositoryPath, action, configuration, suggestionContainer));
+                addControl(new SuggestedActionControl(repositoryPath, action.Element, configuration, suggestionContainer, action.LeadingElement == SuggestedAction.Verify));
             }
 
             ResizeControlsAndContainer();

@@ -23,6 +23,7 @@ namespace GitSuggest.Windows
             InitializeComponent();
 
             Text = string.Format(Text, Assembly.GetExecutingAssembly().GetName().Version);
+            chkWait.Checked = Git.DefaultWaitOnSuccess;
         }
 
         public void Configure([NotNull] string initialRepositoryPath, [NotNull] Configuration configuration)
@@ -135,8 +136,13 @@ namespace GitSuggest.Windows
         private async void btnStatus_Click(object sender, EventArgs e)
         {
             btnStatus.Enabled = false;
-            await new Git(_SuggestionEngine.RepositoryPath).Execute("status --verbose");
+            await new Git(_SuggestionEngine.RepositoryPath, true).Execute("status --verbose");
             btnStatus.Enabled = true;
+        }
+
+        private void chkWait_CheckedChanged(object sender, EventArgs e)
+        {
+            Git.DefaultWaitOnSuccess = chkWait.Checked;
         }
     }
 }

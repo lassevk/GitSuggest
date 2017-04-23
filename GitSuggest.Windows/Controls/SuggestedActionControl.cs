@@ -21,7 +21,10 @@ namespace GitSuggest.Windows.Controls
         [NotNull]
         private readonly IConfiguration _Configuration;
 
-        public SuggestedActionControl([NotNull] string repositoryPath, [NotNull] SuggestedAction action, [NotNull] IConfiguration configuration, [NotNull] ISuggestionContainer suggestionContainer)
+        [NotNull]
+        private readonly bool _ForceWait;
+
+        public SuggestedActionControl([NotNull] string repositoryPath, [NotNull] SuggestedAction action, [NotNull] IConfiguration configuration, [NotNull] ISuggestionContainer suggestionContainer, bool forceWait)
         {
             InitializeComponent();
 
@@ -29,6 +32,7 @@ namespace GitSuggest.Windows.Controls
             _Action = action ?? throw new ArgumentNullException(nameof(action));
             _Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             _SuggestionContainer = suggestionContainer ?? throw new ArgumentNullException(nameof(suggestionContainer));
+            _ForceWait = forceWait;
 
             lblDescription.Text = _Action.Description;
 
@@ -61,7 +65,7 @@ namespace GitSuggest.Windows.Controls
         {
             btnExecute.Enabled = false;
 
-            await new Git(_RepositoryPath).Execute(_Action.Commands.ToArray());
+            await new Git(_RepositoryPath, _ForceWait).Execute(_Action.Commands.ToArray());
 
             btnExecute.Enabled = true;
             if (_Action.ShouldRefreshAfterExecuting)

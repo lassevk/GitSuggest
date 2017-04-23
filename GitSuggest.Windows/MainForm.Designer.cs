@@ -39,6 +39,7 @@
             this.eRepositoryPath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.paSuggestions = new System.Windows.Forms.Panel();
+            this.chkWait = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.paToolbar.SuspendLayout();
             this.SuspendLayout();
@@ -57,6 +58,7 @@
             // 
             // paToolbar
             // 
+            this.paToolbar.Controls.Add(this.chkWait);
             this.paToolbar.Controls.Add(this.chkBrief);
             this.paToolbar.Controls.Add(this.chkAll);
             this.paToolbar.Controls.Add(this.btnFetch);
@@ -167,6 +169,19 @@
             this.paSuggestions.Size = new System.Drawing.Size(714, 293);
             this.paSuggestions.TabIndex = 1;
             // 
+            // chkWait
+            // 
+            this.chkWait.AutoSize = true;
+            this.chkWait.Dock = System.Windows.Forms.DockStyle.Left;
+            this.chkWait.Location = new System.Drawing.Point(467, 0);
+            this.chkWait.Name = "chkWait";
+            this.chkWait.Padding = new System.Windows.Forms.Padding(4, 2, 0, 0);
+            this.chkWait.Size = new System.Drawing.Size(183, 23);
+            this.chkWait.TabIndex = 12;
+            this.chkWait.Text = "Wait after successful commands";
+            this.chkWait.UseVisualStyleBackColor = true;
+            this.chkWait.CheckedChanged += new System.EventHandler(this.chkWait_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -197,6 +212,7 @@
         private System.Windows.Forms.Button btnStatus;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnFetch;
+        private System.Windows.Forms.CheckBox chkWait;
     }
 }
 
