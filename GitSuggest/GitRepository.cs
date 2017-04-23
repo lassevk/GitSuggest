@@ -140,7 +140,7 @@ namespace GitSuggest
         public async Task<List<(bool isCurrent, string branchName)>> GetBranches()
         {
             var (exitcode, lines) = await ExecuteGit($"branch --list");
-            if (exitcode == 0)
+            if (exitcode != 0)
                 return null;
 
             var result = new List<(bool isCurrent, string branchName)>();
