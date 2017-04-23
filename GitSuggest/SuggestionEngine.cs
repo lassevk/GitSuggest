@@ -26,6 +26,9 @@ namespace GitSuggest
             _Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
+        [NotNull]
+        public string RepositoryPath => _GitRepository.Path;
+
         [NotNull, ItemNotNull]
         public async Task<List<Suggestion>> GetSuggestions()
         {

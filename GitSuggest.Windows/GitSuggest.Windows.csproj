@@ -141,6 +141,8 @@
     <Compile Include="Controls\SuggestionControl.Designer.cs">
       <DependentUpon>SuggestionControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Git.cs" />
+    <Compile Include="ISuggestionContainer.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

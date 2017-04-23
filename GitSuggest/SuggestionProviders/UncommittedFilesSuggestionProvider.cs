@@ -16,9 +16,9 @@ namespace GitSuggest.SuggestionProviders
             var result = new List<Suggestion>
                          {
                              new Suggestion(1000, "There are staged files on disk that can be committed", "",
-                                            new SuggestedAction("List all staged files", "status"),
+                                            new SuggestedAction("List all staged files", false, "status"),
                                             SuggestedAction.Verify,
-                                            new SuggestedAction("Commit staged files", "commit")),
+                                            new SuggestedAction("Commit staged files", true, "commit")),
                              new Suggestion(800, "There are staged files on disk that can be checked out to undo their content", "WARNING: Checking out a file will remove your local changes, there is no undo")
                          };
 

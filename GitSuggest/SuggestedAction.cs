@@ -8,11 +8,12 @@ namespace GitSuggest
 {
     public class SuggestedAction
     {
-        public SuggestedAction([NotNull] string description, [NotNull] params string[] commands)
+        public SuggestedAction([NotNull] string description, bool shouldRefreshAfterExecuting, [NotNull] params string[] commands)
         {
             Description = description ?? throw new ArgumentNullException(nameof(description));
 
             Commands = commands.ToList() ?? throw new ArgumentNullException(nameof(commands));
+            ShouldRefreshAfterExecuting = shouldRefreshAfterExecuting;
         }
 
         [NotNull, UsedImplicitly]
@@ -21,7 +22,9 @@ namespace GitSuggest
         [NotNull, UsedImplicitly]
         public List<string> Commands { get; }
 
+        public bool ShouldRefreshAfterExecuting { get; }
+
         [NotNull]
-        public static readonly SuggestedAction Verify = new SuggestedAction("VERIFY");
+        public static readonly SuggestedAction Verify = new SuggestedAction("VERIFY", false);
     }
 }

@@ -21,6 +21,9 @@ namespace GitSuggest
         [NotNull]
         private readonly Dictionary<string, (int, List<string>)> _CachedResults = new Dictionary<string, (int, List<string>)>();
 
+        [NotNull]
+        public string Path => _Path;
+
         protected GitProcessor([NotNull] string path)
         {
             _Path = path ?? throw new ArgumentNullException(nameof(path));

@@ -20,11 +20,11 @@ namespace GitSuggest.SuggestionProviders
 
             Suggestion suggestion = null;
             if (ahead != 0 && behind != 0)
-                suggestion = new Suggestion(500, $"Branch '{branch}' is {ahead} ahead and {behind} behind '{upstream}'", "", new SuggestedAction($"Pull {upstream} into {branch} to update and merge changes", "pull"));
+                suggestion = new Suggestion(500, $"Branch '{branch}' is {ahead} ahead and {behind} behind '{upstream}'", "", new SuggestedAction($"Pull {upstream} into {branch} to update and merge changes", true, "pull"));
             else if (behind != 0)
-                suggestion = new Suggestion(500, $"Branch '{branch}' is {behind} behind '{upstream}'", "", new SuggestedAction($"Pull {upstream} into {branch} to update through a fast-forward", "pull"));
+                suggestion = new Suggestion(500, $"Branch '{branch}' is {behind} behind '{upstream}'", "", new SuggestedAction($"Pull {upstream} into {branch} to update through a fast-forward", true, "pull"));
             else if (ahead != 0)
-                suggestion = new Suggestion(500, $"Branch '{branch}' is {ahead} ahead of '{upstream}'", "", new SuggestedAction($"Push {branch} to {upstream} to update remote", "push"));
+                suggestion = new Suggestion(500, $"Branch '{branch}' is {ahead} ahead of '{upstream}'", "", new SuggestedAction($"Push {branch} to {upstream} to update remote", true, "push"));
 
             var result = new List<Suggestion>();
             if (suggestion != null)

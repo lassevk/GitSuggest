@@ -43,6 +43,7 @@
             this.btnExecute.TabIndex = 1;
             this.btnExecute.Text = "Execute";
             this.btnExecute.UseVisualStyleBackColor = true;
+            this.btnExecute.Click += new System.EventHandler(this.btnExecute_Click);
             // 
             // lblDescription
             // 

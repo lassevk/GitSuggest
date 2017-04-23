@@ -17,12 +17,12 @@ namespace GitSuggest.SuggestionProviders
             var result = new List<Suggestion>
                          {
                              new Suggestion(1200, "There are untracked files on disk that should be added before committing", description,
-                                            new SuggestedAction("List all untracked files", "status"),
+                                            new SuggestedAction("List all untracked files", false, "status"),
                                             SuggestedAction.Verify,
-                                            new SuggestedAction("Add all untracked (and unstaged) files to the index", "add .")),
+                                            new SuggestedAction("Add all untracked (and unstaged) files to the index", true, "add .")),
 
                 new Suggestion(800, "There are untracked files on disk that can be cleaned", description + Environment.NewLine + "WARNING: Cleaning files will remove them, there is no undo",
-                                            new SuggestedAction("Clean all untracked files", "clean -fdx"))
+                                            new SuggestedAction("Clean all untracked files", true, "clean -fdx"))
                          };
 
 

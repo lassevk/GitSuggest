@@ -10,22 +10,23 @@ namespace GitSuggest.Windows.Controls
 {
     public partial class SuggestionControl : UserControl
     {
-        private readonly IConfiguration _Configuration;
-
-        [CanBeNull]
-        private readonly Suggestion _Suggestion;
-
-        public SuggestionControl([NotNull] Suggestion suggestion, [NotNull] IConfiguration configuration)
+        public SuggestionControl([NotNull] string repositoryPath, [NotNull] Suggestion suggestion, [NotNull] IConfiguration configuration, [NotNull] ISuggestionContainer suggestionContainer)
         {
+            if (repositoryPath == null)
+                throw new ArgumentNullException(nameof(repositoryPath));
+            if (suggestion == null)
+                throw new ArgumentNullException(nameof(suggestion));
+            if (configuration == null)
+                throw new ArgumentNullException(nameof(configuration));
+            if (suggestionContainer == null)
+                throw new ArgumentNullException(nameof(suggestionContainer));
+
             InitializeComponent();
 
-            _Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-            _Suggestion = suggestion ?? throw new ArgumentNullException(nameof(suggestion));
+            lblTitle.Text = suggestion.Title;
+            lblDescription.Text = suggestion.Description;
 
-            lblTitle.Text = _Suggestion.Title;
-            lblDescription.Text = _Suggestion.Description;
-
-            if (_Configuration.Brief || string.IsNullOrWhiteSpace(lblDescription.Text))
+            if (configuration.Brief || string.IsNullOrWhiteSpace(lblDescription.Text))
                 lblDescription.Visible = false;
 
             int y = 0;
@@ -40,15 +41,12 @@ namespace GitSuggest.Windows.Controls
                 y += control.Height;
             }
 
-            foreach (var action in _Suggestion.Actions)
+            foreach (var action in suggestion.Actions)
             {
                 if (action == SuggestedAction.Verify)
                     continue;
 
-                //if (paActions.Controls.Count > 0)
-                //    addControl(new Panel { Height = 8 });
-
-                addControl(new SuggestedActionControl(action, _Configuration));
+                addControl(new SuggestedActionControl(repositoryPath, action, configuration, suggestionContainer));
             }
 
             ResizeControlsAndContainer();

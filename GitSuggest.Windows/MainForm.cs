@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -9,7 +10,7 @@ using JetBrains.Annotations;
 
 namespace GitSuggest.Windows
 {
-    internal partial class MainForm : Form
+    internal partial class MainForm : Form, ISuggestionContainer
     {
         [CanBeNull]
         private SuggestionEngine _SuggestionEngine;
@@ -42,8 +43,32 @@ namespace GitSuggest.Windows
             if (_Configuration == null)
                 return;
 
+            _SuggestionEngine = null;
+            string repositoryPath = eRepositoryPath.Text.TrimEnd('/', '\\');
+            if (!Directory.Exists(repositoryPath))
+            {
+                EnableDisableButtons();
+                return;
+            }
+
             _SuggestionEngine = new SuggestionEngine(eRepositoryPath.Text, _Configuration);
             await RefreshSuggestions();
+            EnableDisableButtons();
+        }
+
+        private void EnableDisableButtons()
+        {
+            btnFetch.Enabled = _SuggestionEngine != null;
+            btnStatus.Enabled = _SuggestionEngine != null;
+            chkAll.Enabled = _SuggestionEngine != null;
+            chkBrief.Enabled = _SuggestionEngine != null;
+        }
+
+        void ISuggestionContainer.RefreshSuggestions()
+        {
+#pragma warning disable 4014
+            RefreshSuggestions();
+#pragma warning restore 4014
         }
 
         private async Task RefreshSuggestions()
@@ -70,7 +95,7 @@ namespace GitSuggest.Windows
                 if (paSuggestions.Controls.Count > 0)
                     addControl(new Panel { Height = 8 });
 
-                addControl(new SuggestionControl(suggestion, _Configuration));
+                addControl(new SuggestionControl(_SuggestionEngine.RepositoryPath, suggestion, _Configuration, this));
             }
 
             paSuggestions.ResumeLayout();
@@ -97,6 +122,21 @@ namespace GitSuggest.Windows
 
             _Configuration.Brief = chkBrief.Checked;
             await RefreshSuggestions();
+        }
+
+        private async void btnFetch_Click(object sender, EventArgs e)
+        {
+            btnStatus.Enabled = false;
+            await new Git(_SuggestionEngine.RepositoryPath).Execute("fetch --all --verbose");
+            await RefreshSuggestionEngine();
+            btnStatus.Enabled = true;
+        }
+
+        private async void btnStatus_Click(object sender, EventArgs e)
+        {
+            btnStatus.Enabled = false;
+            await new Git(_SuggestionEngine.RepositoryPath).Execute("status --verbose");
+            btnStatus.Enabled = true;
         }
     }
 }

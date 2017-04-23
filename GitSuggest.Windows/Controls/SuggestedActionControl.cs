@@ -10,17 +10,25 @@ namespace GitSuggest.Windows.Controls
     public partial class SuggestedActionControl : UserControl
     {
         [NotNull]
+        private readonly string _RepositoryPath;
+
+        [NotNull]
+        private readonly ISuggestionContainer _SuggestionContainer;
+
+        [NotNull]
         private readonly SuggestedAction _Action;
 
         [NotNull]
         private readonly IConfiguration _Configuration;
 
-        public SuggestedActionControl([NotNull] SuggestedAction action, [NotNull] IConfiguration configuration)
+        public SuggestedActionControl([NotNull] string repositoryPath, [NotNull] SuggestedAction action, [NotNull] IConfiguration configuration, [NotNull] ISuggestionContainer suggestionContainer)
         {
             InitializeComponent();
 
+            _RepositoryPath = repositoryPath ?? throw new ArgumentNullException(nameof(repositoryPath));
             _Action = action ?? throw new ArgumentNullException(nameof(action));
             _Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            _SuggestionContainer = suggestionContainer ?? throw new ArgumentNullException(nameof(suggestionContainer));
 
             lblDescription.Text = _Action.Description;
 
@@ -47,6 +55,17 @@ namespace GitSuggest.Windows.Controls
                 bottom = Math.Max(bottom, paCommands.Bottom);
 
             Height = bottom + btnExecute.Top;
+        }
+
+        private async void btnExecute_Click(object sender, EventArgs e)
+        {
+            btnExecute.Enabled = false;
+
+            await new Git(_RepositoryPath).Execute(_Action.Commands.ToArray());
+
+            btnExecute.Enabled = true;
+            if (_Action.ShouldRefreshAfterExecuting)
+                _SuggestionContainer.RefreshSuggestions();
         }
     }
 }
