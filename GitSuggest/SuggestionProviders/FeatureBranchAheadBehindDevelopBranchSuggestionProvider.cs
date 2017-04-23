@@ -6,7 +6,7 @@ namespace GitSuggest.SuggestionProviders
     internal class FeatureBranchAheadBehindDevelopBranchSuggestionProvider : LinkedBranchAheadBehindSuggestionProvider
     {
         public FeatureBranchAheadBehindDevelopBranchSuggestionProvider()
-            : base(branchName => branchName.StartsWith("feature/"), "develop", 600)
+            : base("Feature-branch", branchName => branchName.StartsWith("feature/"), "develop", 600, true)
         {
         }
     }

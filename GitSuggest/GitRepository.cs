@@ -168,5 +168,60 @@ namespace GitSuggest
 
             return lines;
         }
+
+        public async Task<bool> IsCleanWorkingFolder()
+        {
+            if ((await GetFileStatus()).Count > 0)
+                return false;
+
+            if (await IsMergeConflict())
+                return false;
+
+            if (await IsBisecting())
+                return false;
+
+            if (await IsCherryPicking())
+                return false;
+
+            return true;
+        }
+
+        public async Task<bool> IsMergeConflict()
+        {
+            var (exitcode, lines) = await ExecuteGit("status");
+            if (exitcode != 0)
+                return false;
+
+            if (lines.Any(l => l == "You have unmerged paths."))
+                return true;
+
+            return false;
+        }
+
+        public async Task<bool> IsMerging()
+        {
+            var (exitcode, lines) = await ExecuteGit("status");
+            if (exitcode != 0)
+                return false;
+
+            if (lines.Any(l => l == "You have unmerged paths."))
+                return true;
+            if (lines.Any(l => l == "All conflicts fixed but you are still merging."))
+                return true;
+
+            return false;
+        }
+
+#pragma warning disable 1998
+        public async Task<bool> IsBisecting()
+        {
+            return false;
+        }
+
+        public async Task<bool> IsCherryPicking()
+        {
+            return false;
+        }
+#pragma warning restore 1998
     }
 }
