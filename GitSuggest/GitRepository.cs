@@ -129,5 +129,11 @@ namespace GitSuggest
         {
             return (await GetFileStatus()).Where(item => item.local != " ").Select(item => item.path).ToList().AssumeNotNull();
         }
+
+        public async Task<bool> BranchExists(string branchName)
+        {
+            var (exitcode, _) = await ExecuteGit("rev-parse \"{branchName}\"");
+            return exitcode == 0;
+        }
     }
 }

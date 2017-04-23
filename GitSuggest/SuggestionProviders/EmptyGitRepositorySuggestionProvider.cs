@@ -15,7 +15,7 @@ namespace GitSuggest.SuggestionProviders
             if (lines.Count == 0)
             {
                 // TODO: Check if there are files or directies on disk
-                return new List<Suggestion> { new Suggestion(1000, "Add content to your new repository", "Your repository seems to be empty of commits, and no files or directories on disk exists.") };
+                return new List<Suggestion> { new Suggestion(99999, "Add content to your new repository", "Your repository seems to be empty of commits, and no files or directories on disk exists.") };
             }
 
             return new List<Suggestion>();
