@@ -43,7 +43,7 @@ namespace GitSuggest.SuggestionProviders
                 else if (ahead != 0 && upstream.IndexOf('/') > 0)
                 {
                     var remote = upstream.Substring(0, upstream.IndexOf('/'));
-                    suggestions.Add(new Suggestion(500, $"Branch '{branch}' is {ahead} commit{(ahead != 1 ? "s" : "")} ahead of '{upstream}'", "",
+                    suggestions.Add(new Suggestion(400, $"Branch '{branch}' is {ahead} commit{(ahead != 1 ? "s" : "")} ahead of '{upstream}'", "",
                                                    new SuggestedAction($"Push '{branch}' to '{upstream}' to update remote", true, $"push {remote} {branchName}")));
                 }
             }
