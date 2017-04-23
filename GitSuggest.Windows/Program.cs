@@ -13,7 +13,10 @@ namespace GitSuggest.Windows
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            var mainForm = new MainForm();
+
+            mainForm.Configure(@"D:\Dev\VS.NET\GitSuggest", new Configuration());
+            Application.Run(mainForm);
         }
     }
 }
