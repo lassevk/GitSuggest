@@ -33,6 +33,7 @@
             this.chkWait = new System.Windows.Forms.CheckBox();
             this.chkBrief = new System.Windows.Forms.CheckBox();
             this.chkAll = new System.Windows.Forms.CheckBox();
+            this.btnPrompt = new System.Windows.Forms.Button();
             this.btnFetch = new System.Windows.Forms.Button();
             this.btnStatus = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
@@ -41,7 +42,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.paSuggestions = new System.Windows.Forms.Panel();
             this.paRefreshing = new System.Windows.Forms.Panel();
-            this.btnPrompt = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.paToolbar.SuspendLayout();
             this.SuspendLayout();
@@ -55,7 +55,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(714, 87);
+            this.panel1.Size = new System.Drawing.Size(821, 87);
             this.panel1.TabIndex = 0;
             // 
             // paToolbar
@@ -70,7 +70,7 @@
             this.paToolbar.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.paToolbar.Location = new System.Drawing.Point(0, 64);
             this.paToolbar.Name = "paToolbar";
-            this.paToolbar.Size = new System.Drawing.Size(714, 23);
+            this.paToolbar.Size = new System.Drawing.Size(821, 23);
             this.paToolbar.TabIndex = 7;
             // 
             // chkWait
@@ -112,6 +112,17 @@
             this.chkAll.UseVisualStyleBackColor = true;
             this.chkAll.Click += new System.EventHandler(this.chkAll_CheckedChanged);
             // 
+            // btnPrompt
+            // 
+            this.btnPrompt.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnPrompt.Location = new System.Drawing.Point(225, 0);
+            this.btnPrompt.Name = "btnPrompt";
+            this.btnPrompt.Size = new System.Drawing.Size(75, 23);
+            this.btnPrompt.TabIndex = 13;
+            this.btnPrompt.Text = "Prompt";
+            this.btnPrompt.UseVisualStyleBackColor = true;
+            this.btnPrompt.Click += new System.EventHandler(this.btnPrompt_Click);
+            // 
             // btnFetch
             // 
             this.btnFetch.Dock = System.Windows.Forms.DockStyle.Left;
@@ -148,7 +159,7 @@
             // btnSelectFolder
             // 
             this.btnSelectFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSelectFolder.Location = new System.Drawing.Point(677, 25);
+            this.btnSelectFolder.Location = new System.Drawing.Point(784, 25);
             this.btnSelectFolder.Name = "btnSelectFolder";
             this.btnSelectFolder.Size = new System.Drawing.Size(25, 21);
             this.btnSelectFolder.TabIndex = 2;
@@ -163,7 +174,7 @@
             this.eRepositoryPath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
             this.eRepositoryPath.Location = new System.Drawing.Point(12, 25);
             this.eRepositoryPath.Name = "eRepositoryPath";
-            this.eRepositoryPath.Size = new System.Drawing.Size(659, 20);
+            this.eRepositoryPath.Size = new System.Drawing.Size(766, 20);
             this.eRepositoryPath.TabIndex = 1;
             // 
             // label1
@@ -182,7 +193,7 @@
             this.paSuggestions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.paSuggestions.Location = new System.Drawing.Point(0, 87);
             this.paSuggestions.Name = "paSuggestions";
-            this.paSuggestions.Size = new System.Drawing.Size(714, 285);
+            this.paSuggestions.Size = new System.Drawing.Size(821, 285);
             this.paSuggestions.TabIndex = 1;
             this.paSuggestions.LocationChanged += new System.EventHandler(this.paSuggestions_LocationChanged);
             this.paSuggestions.SizeChanged += new System.EventHandler(this.paSuggestions_SizeChanged);
@@ -195,22 +206,11 @@
             this.paRefreshing.TabIndex = 0;
             this.paRefreshing.Visible = false;
             // 
-            // btnPrompt
-            // 
-            this.btnPrompt.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnPrompt.Location = new System.Drawing.Point(225, 0);
-            this.btnPrompt.Name = "btnPrompt";
-            this.btnPrompt.Size = new System.Drawing.Size(75, 23);
-            this.btnPrompt.TabIndex = 13;
-            this.btnPrompt.Text = "Prompt";
-            this.btnPrompt.UseVisualStyleBackColor = true;
-            this.btnPrompt.Click += new System.EventHandler(this.btnPrompt_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(714, 372);
+            this.ClientSize = new System.Drawing.Size(821, 372);
             this.Controls.Add(this.paRefreshing);
             this.Controls.Add(this.paSuggestions);
             this.Controls.Add(this.panel1);
