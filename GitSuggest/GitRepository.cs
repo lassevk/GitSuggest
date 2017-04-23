@@ -159,5 +159,14 @@ namespace GitSuggest
 
             return result;
         }
+
+        public async Task<List<string>> GetRemotes()
+        {
+            var (exitcode, lines) = await ExecuteGit("remote");
+            if (exitcode != 0)
+                return null;
+
+            return lines;
+        }
     }
 }
